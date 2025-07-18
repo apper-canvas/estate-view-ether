@@ -1,0 +1,76 @@
+@import 'react-toastify/dist/ReactToastify.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-neutral-50 text-neutral-800 font-body;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-500 bg-clip-text text-transparent;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg;
+  }
+  
+  .property-card {
+    @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-medium hover:from-primary-700 hover:to-primary-800 transition-all duration-200 transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-gradient-to-r from-secondary-500 to-secondary-600 text-white px-6 py-3 rounded-lg font-medium hover:from-secondary-600 hover:to-secondary-700 transition-all duration-200 transform hover:scale-105;
+  }
+  
+  .btn-ghost {
+    @apply border-2 border-primary-300 text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-primary-50 transition-all duration-200;
+  }
+  
+  .filter-card {
+    @apply bg-white rounded-lg shadow-sm border border-neutral-200 p-6;
+  }
+  
+  .skeleton {
+    @apply bg-gradient-to-r from-neutral-200 via-neutral-300 to-neutral-200 bg-[length:200px_100%] animate-shimmer;
+  }
+}
+
+/* Toast Overrides */
+.Toastify__toast-container {
+  @apply !top-20 !right-4 !w-96;
+}
+
+.Toastify__toast {
+  @apply !bg-white !shadow-lg !rounded-lg !border !border-neutral-200 !text-neutral-800;
+}
+
+.Toastify__toast--success {
+  @apply !bg-green-50 !border-green-200;
+}
+
+.Toastify__toast--error {
+  @apply !bg-red-50 !border-red-200;
+}
+
+.Toastify__toast--warning {
+  @apply !bg-yellow-50 !border-yellow-200;
+}
+
+.Toastify__close-button {
+  @apply !text-neutral-500 hover:!text-neutral-700;
+}
+
+.Toastify__progress-bar {
+  @apply !bg-gradient-to-r !from-primary-500 !to-secondary-500;
+}
