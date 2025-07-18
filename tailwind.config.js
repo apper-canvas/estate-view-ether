@@ -53,8 +53,9 @@ export default {
           600: '#4A5568',
           700: '#2D3748',
           800: '#1A202C',
-          900: '#171923',
+900: '#171923',
         },
+        border: '#E2E8F0', // neutral-200 for consistent border color
       },
       fontFamily: {
         display: ['Playfair Display', 'serif'],
