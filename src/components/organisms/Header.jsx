@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useSelector } from 'react-redux';
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import SearchBar from "@/components/molecules/SearchBar";
 import { useFavorites } from "@/hooks/useFavorites";
 import { cn } from "@/utils/cn";
+import { AuthContext } from "@/App";
 
 const Header = ({ onSearch }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { favorites } = useFavorites();
+  const { logout } = useContext(AuthContext);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
 
   const navigation = [
     { name: "Browse Properties", href: "/", icon: "Home" },
@@ -43,8 +47,7 @@ const Header = ({ onSearch }) => {
               EstateView
             </span>
           </Link>
-
-          {/* Desktop Navigation */}
+{/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
@@ -66,6 +69,24 @@ const Header = ({ onSearch }) => {
                 )}
               </Link>
             ))}
+            
+            {/* User Menu */}
+            {isAuthenticated && (
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-neutral-600">
+                  Welcome, {user?.firstName || user?.name || 'User'}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={logout}
+                  className="text-neutral-600 hover:text-neutral-800"
+                >
+                  <ApperIcon name="LogOut" className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+              </div>
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -97,7 +118,7 @@ const Header = ({ onSearch }) => {
             {/* Mobile Search */}
             <SearchBar onSearch={handleSearch} />
             
-            {/* Mobile Navigation */}
+{/* Mobile Navigation */}
             <nav className="space-y-2">
               {navigation.map((item) => (
                 <Link
@@ -120,6 +141,27 @@ const Header = ({ onSearch }) => {
                   )}
                 </Link>
               ))}
+              
+              {/* Mobile User Menu */}
+              {isAuthenticated && (
+                <div className="border-t border-neutral-200 pt-4 mt-4">
+                  <div className="px-4 py-2 text-sm text-neutral-600">
+                    Welcome, {user?.firstName || user?.name || 'User'}
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full justify-start text-neutral-600 hover:text-neutral-800"
+                  >
+                    <ApperIcon name="LogOut" className="w-4 h-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
+              )}
             </nav>
           </div>
         </motion.div>
